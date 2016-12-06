@@ -12,6 +12,3 @@ The ability to receive messages by WebSocket stream, if you choose
 The ability to receive messages by polling HTTP GET, if you choose
 A stable schema, even if your bot changes its protocol version
 Direct Line 1.1 and 3.0 are both available and supported.
-
-
-
