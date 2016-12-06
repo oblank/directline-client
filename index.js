@@ -308,4 +308,16 @@ DirectLineClient.prototype.ask = function(token, conversationId, body) {
     return defer.promise;
 }
 
+
+/**
+ * [ask description]
+ * @param  {[type]} conversationId [description]
+ * @param  {[type]} token          [description]
+ * @param  {[type]} content        [description]
+ * @return {[type]}                [description]
+ */
+
+//DirectLineClient.prototype.getStreamURL
+//DirectLineClient.prototype.getReconnectStreamURL
+
 exports = module.exports = new DirectLineClient();

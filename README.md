@@ -12,3 +12,56 @@ The ability to receive messages by WebSocket stream, if you choose
 The ability to receive messages by polling HTTP GET, if you choose
 A stable schema, even if your bot changes its protocol version
 Direct Line 1.1 and 3.0 are both available and supported.
+
+## API
+
+> Check out test/test.js for samples.
+
+```
+var client = require('directline-api');
+// get a token
+client.getToken(secret);
+
+// create a conversation
+client.createConversation(tokenOrSecret);
+
+// post a message in a conversation
+client.postMessage(token, conversationId, {
+                text: 'YOUR_TEXT'
+            });
+
+// post a message with an userId, userId is your unique id for message sender.
+client.ask(token, conversationId, {
+                        text: 'YOUR_TEXT',
+                        from: {
+                            "id":'FROM_USERID',
+                            "name": "FROM_USERNAME"
+                            }
+                    });
+
+// post a file in a conversation
+client.postFileMessage(tokenOrSecret, conversationId, formData);
+
+// get messages in a conversation
+client.getMessages(tokenOrSecret, conversationId, [watermark]);
+
+// generate a new conversation and token
+client.generateConversationAndToken(secret);
+
+// refresh a token
+client.refreshToken(token);
+
+// request with a text and get response
+// https://docs.botframework.com/en-us/restapi/directline/#!/Conversations/Conversations_PostMessage
+client.ask(token, conversationId, body);
+
+```
+
+## Run Test
+```
+npm install
+touch test/conf.json 
+# ADD secret as 'DIRECT_LINE_SECRET'
+# ADD token as 'DIRECT_LINE_TOKEN'
+npm test
+```
