@@ -313,9 +313,10 @@ DirectLineClient.prototype.ask = function(token, conversationId, body) {
  * [getReconnectStreamURL description]
  * @param  {[type]} conversationId [description]
  * @param  {[type]} tokenOrSecret  [description]
+ * @param  {[type]} watermark      [description]
  * @return {[type]}                [description]
  */
-DirectLineClient.prototype.getReconnectStreamURL = function(tokenOrSecret, conversationId) {
+DirectLineClient.prototype.getReconnectStreamURL = function(tokenOrSecret, conversationId, watermark) {
     var defer = Q.defer();
 
     var watermarkStr = watermark ? 'watermark=' + watermark : '';
