@@ -52,8 +52,11 @@ client.generateConversationAndToken(secret);
 client.refreshToken(token);
 
 // request with a text and get response
-// https://docs.botframework.com/en-us/restapi/directline/#!/Conversations/Conversations_PostMessage
+// https://docs.botframework.com/en-us/restapi/directline3/#!/Conversations/Conversations_PostMessage
 client.ask(token, conversationId, body);
+
+// get a new StreamURL for reconnecting specific to conversationId
+client.getReconnectStreamURL(tokenOrSecret, conversationId, watermark);
 
 ```
 
