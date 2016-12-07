@@ -310,14 +310,38 @@ DirectLineClient.prototype.ask = function(token, conversationId, body) {
 
 
 /**
- * [ask description]
+ * [getReconnectStreamURL description]
  * @param  {[type]} conversationId [description]
- * @param  {[type]} token          [description]
- * @param  {[type]} content        [description]
+ * @param  {[type]} tokenOrSecret  [description]
  * @return {[type]}                [description]
  */
+DirectLineClient.prototype.getReconnectStreamURL = function(tokenOrSecret, conversationId) {
+    var defer = Q.defer();
 
-//DirectLineClient.prototype.getStreamURL
-//DirectLineClient.prototype.getReconnectStreamURL
+    var watermarkStr = watermark ? 'watermark=' + watermark : '';
+    request({
+        method: 'GET',
+        uri: baseUrl + '/conversations/' + conversationId + '/?' + watermarkStr,
+        headers: {
+            'Authorization': 'Bearer ' + tokenOrSecret
+        }
+    }, function(err, response, body) {
+        if (err) return defer.reject({
+            rc: 1,
+            error: err
+        });
+        if (response.statusCode === 200) {
+            // slice is to remove "" in the body for token
+            return defer.resolve(body.slice(1, -1));
+        } else {
+            return defer.reject({
+                rc: 2,
+                error: 'wrong status code returned by directline api in refreshToken'
+            });
+        }
+    });
+
+    return defer.promise;
+}
 
 exports = module.exports = new DirectLineClient();
