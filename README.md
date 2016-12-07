@@ -18,7 +18,7 @@ Direct Line 1.1 and 3.0 are both available and supported.
 > Check out test/test.js for samples.
 
 ```
-var client = require('directline-api');
+var client = require('directline-client');
 // get a token
 client.getToken(secret);
 
