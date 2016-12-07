@@ -183,10 +183,11 @@ test.only.cb('DirectLineAPI#dialog', t => {
     };
     directLineAPI.getToken(conf.DIRECT_LINE_SECRET)
         .then(function(token) {
+            console.log("got token " + token);
             return directLineAPI.createConversation(token);
         })
         .then(function(result) {
-            console.log('ask>> ' + JSON.stringify(result));
+            console.log('created conversation ' + JSON.stringify(result));
             data.token = result.token;
             data.conversationId = result.conversationId;
             return directLineAPI.ask(result.token, result.conversationId, { text: 'bar', from: fromUser });

@@ -18,7 +18,7 @@ function DirectLineClient() {}
 DirectLineClient.prototype.getToken = function(secret) {
     var defer = Q.defer();
     request({
-        method: 'GET',
+        method: 'POST',
         uri: baseUrl + '/tokens/generate',
         headers: {
             'Authorization': 'Bearer ' + secret
@@ -29,7 +29,7 @@ DirectLineClient.prototype.getToken = function(secret) {
             error: err
         });
         if (response.statusCode === 200) {
-            return defer.resolve(body.slice(1, -1));
+            return defer.resolve(JSON.parse(body).token);
         } else {
             return defer.reject({
                 rc: 2,
@@ -60,7 +60,8 @@ DirectLineClient.prototype.createConversation = function(tokenOrSecret) {
             rc: 1,
             error: err
         });
-        if (response.statusCode === 200) {
+        if (response.statusCode === 200 || response.statusCode === 201) {
+            console.log("Got response" + JSON.stringify(response));
             return defer.resolve(JSON.parse(body));
         } else {
             return defer.reject({
@@ -279,7 +280,7 @@ DirectLineClient.prototype.ask = function(token, conversationId, body) {
                     self.getMessages(token, conversationId, data.watermark)
                         .then(function(result) {
                             var isDone = false;
-                            result.messages.forEach(function(val, index) {
+                            result.activities.forEach(function(val, index) {
                                 if (val.id === data.nextId) {
                                     isDone = true;
                                     return callback(null, val);
