@@ -61,7 +61,7 @@ DirectLineClient.prototype.createConversation = function(tokenOrSecret) {
             error: err
         });
         if (response.statusCode === 200 || response.statusCode === 201) {
-            console.log("Got response" + JSON.stringify(response));
+            console.log("createConversation response" + JSON.stringify(body));
             return defer.resolve(JSON.parse(body));
         } else {
             return defer.reject({
@@ -92,13 +92,13 @@ DirectLineClient.prototype.postMessage = function(tokenOrSecret, conversationId,
         },
         json: true,
         body: body
-    }, function(err, response) {
+    }, function(err, response, body) {
         if (err) return defer.reject({
             rc: 1,
             error: err
         });
         if (response.statusCode === 204 || response.statusCode === 200) {
-            return defer.resolve();
+            return defer.resolve(body);
         } else {
             return defer.reject({
                 rc: 2,
@@ -273,12 +273,14 @@ DirectLineClient.prototype.ask = function(token, conversationId, body) {
             data.nextId = resolveNextConversationMessageId(conversationId, data.watermark);
             return self.postMessage(token, conversationId, body);
         })
-        .then(function() {
+        .then(function(result) {
+            console.log('// ask post result:', result)
 
             function waitForResponse(callback) {
                 setTimeout(function() {
                     self.getMessages(token, conversationId, data.watermark)
                         .then(function(result) {
+                            console.log('// ask getMessage:', result);
                             var isDone = false;
                             result.activities.forEach(function(val, index) {
                                 if (val.id === data.nextId) {
