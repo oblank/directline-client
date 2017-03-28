@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/amolmk/directline-client.git"
+    "url": "git+ssh://git@github.com/oblank/directline-client.git"
   },
   "keywords": [
     "botframework",
@@ -23,9 +23,9 @@
   "author": "amolwriteme@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amolmk/directline-client/issues"
+    "url": "https://github.com/oblank/directline-client/issues"
   },
-  "homepage": "https://github.com/amolmk/directline-client#readme",
+  "homepage": "https://github.com/oblank/directline-client#readme",
   "devDependencies": {
     "ava": "^0.15.2",
     "shortid": "^2.2.6"
