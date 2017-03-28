@@ -1,5 +1,5 @@
 {
-  "name": "directline-client",
+  "name": "directline-client-ob",
   "version": "1.0.2",
   "description": "Client for Microsoft Botframework Direct Line REST API v3",
   "main": "index.js",
